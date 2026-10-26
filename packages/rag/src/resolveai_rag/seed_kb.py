@@ -58,7 +58,7 @@ def seed_kb(kb_dir: Path | None = None) -> int:
                 .one_or_none()
             )
             if existing and existing.status == DocumentStatus.indexed:
-                logger.info("skip_existing", extra={"filename": path.name})
+                logger.info("skip_existing", extra={"doc_name": path.name})
                 continue
 
             doc_id = existing.id if existing else str(uuid.uuid4())
@@ -95,12 +95,12 @@ def seed_kb(kb_dir: Path | None = None) -> int:
                 indexed += 1
                 logger.info(
                     "indexed_kb_file",
-                    extra={"filename": path.name, "chunks": result.chunk_count},
+                    extra={"doc_name": path.name, "chunks": result.chunk_count},
                 )
             except Exception as exc:  # noqa: BLE001
                 doc.status = DocumentStatus.failed
                 doc.error_message = str(exc)
-                logger.exception("kb_seed_failed", extra={"filename": path.name})
+                logger.exception("kb_seed_failed", extra={"doc_name": path.name})
                 raise
 
     return indexed

@@ -57,6 +57,7 @@ class QdrantVectorStore(VectorStore):
             host=self.settings.qdrant_host,
             port=self.settings.qdrant_port,
             timeout=self.settings.http_timeout_seconds,
+            check_compatibility=False,
         )
         self.collection = self.settings.qdrant_collection
 
@@ -128,15 +129,16 @@ class QdrantVectorStore(VectorStore):
         query: str | None = None,
     ) -> list[SearchHit]:
         # Dense-only here; HybridVectorStore adds BM25+RRF when enabled.
+        # qdrant-client >=1.12 uses query_points (`.search` was removed in 1.20).
         _ = query
-        results = self.client.search(
+        response = self.client.query_points(
             collection_name=self.collection,
-            query_vector=vector,
+            query=vector,
             limit=limit,
             with_payload=True,
         )
         hits: list[SearchHit] = []
-        for point in results:
+        for point in response.points:
             payload = dict(point.payload or {})
             hits.append(
                 SearchHit(
