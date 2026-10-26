@@ -1,0 +1,12 @@
+NovaDesk Product Overview
+
+NovaDesk is a B2B customer support workspace for SaaS teams. Customers use NovaDesk to manage tickets, knowledge articles, and SLAs from one place.
+
+Plans
+- Starter: up to 3 agents, email channel, 8x5 support
+- Growth: up to 20 agents, chat + email, 24x5 support, API access
+- Enterprise: unlimited agents, SSO, custom SLA, dedicated success manager
+
+Billing cycle is monthly or annual. Annual plans receive a 15% discount. Invoices are emailed to the billing contact on the first day of each billing period.
+
+Data residency options include US and EU regions. Enterprise customers may request a dedicated VPC deployment.

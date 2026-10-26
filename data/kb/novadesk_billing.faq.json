@@ -1,0 +1,18 @@
+[
+  {
+    "question": "How do I update my payment method?",
+    "answer": "Go to Settings > Billing > Payment methods. Only workspace owners and billing admins can add or replace cards. Changes take effect on the next invoice."
+  },
+  {
+    "question": "Where can I download invoices?",
+    "answer": "Open Settings > Billing > Invoices. PDF invoices for the last 24 months are available. For older invoices, email billing@novadesk.example."
+  },
+  {
+    "question": "How do refunds work?",
+    "answer": "Unused prepaid months on annual plans may be refunded within 14 days of renewal if usage is under 10% of seats. Refunds are issued to the original payment method within 5–10 business days. Chargebacks without contacting support may suspend the workspace."
+  },
+  {
+    "question": "What is the seat overage policy?",
+    "answer": "If you exceed purchased seats, NovaDesk bills prorated overage at the plan's per-seat rate on the next invoice. Growth and Enterprise can enable auto-add seats in Billing settings."
+  }
+]

@@ -1,0 +1,96 @@
+{
+  "dense": {
+    "n_cases": 120,
+    "status_accuracy": 0.7,
+    "keyword_accuracy": 0.2667,
+    "escalation_accuracy": 0.85,
+    "citation_validity": 1.0,
+    "latency_ms_mean": 7.81,
+    "latency_ms_p50": 7.02,
+    "latency_ms_max": 18.16,
+    "by_kind": {
+      "normal": {
+        "n": 30,
+        "status_match": 30,
+        "status_accuracy": 1.0
+      },
+      "paraphrase": {
+        "n": 20,
+        "status_match": 20,
+        "status_accuracy": 1.0
+      },
+      "missing": {
+        "n": 15,
+        "status_match": 0,
+        "status_accuracy": 0.0
+      },
+      "irrelevant": {
+        "n": 15,
+        "status_match": 0,
+        "status_accuracy": 0.0
+      },
+      "injection": {
+        "n": 10,
+        "status_match": 9,
+        "status_accuracy": 0.9
+      },
+      "conflict": {
+        "n": 10,
+        "status_match": 8,
+        "status_accuracy": 0.8
+      },
+      "escalation": {
+        "n": 20,
+        "status_match": 17,
+        "status_accuracy": 0.85
+      }
+    }
+  },
+  "hybrid": {
+    "n_cases": 120,
+    "status_accuracy": 0.7,
+    "keyword_accuracy": 0.4,
+    "escalation_accuracy": 0.85,
+    "citation_validity": 1.0,
+    "latency_ms_mean": 7.04,
+    "latency_ms_p50": 6.76,
+    "latency_ms_max": 14.28,
+    "by_kind": {
+      "normal": {
+        "n": 30,
+        "status_match": 30,
+        "status_accuracy": 1.0
+      },
+      "paraphrase": {
+        "n": 20,
+        "status_match": 20,
+        "status_accuracy": 1.0
+      },
+      "missing": {
+        "n": 15,
+        "status_match": 0,
+        "status_accuracy": 0.0
+      },
+      "irrelevant": {
+        "n": 15,
+        "status_match": 0,
+        "status_accuracy": 0.0
+      },
+      "injection": {
+        "n": 10,
+        "status_match": 9,
+        "status_accuracy": 0.9
+      },
+      "conflict": {
+        "n": 10,
+        "status_match": 8,
+        "status_accuracy": 0.8
+      },
+      "escalation": {
+        "n": 20,
+        "status_match": 17,
+        "status_accuracy": 0.85
+      }
+    }
+  }
+}

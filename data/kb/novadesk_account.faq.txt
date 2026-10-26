@@ -1,0 +1,11 @@
+Q: How do I reset my NovaDesk password?
+A: Open the login page, click "Forgot password", and enter your work email. You will receive a reset link valid for 30 minutes. If the email does not arrive, check spam and confirm your email is verified in Settings > Profile.
+
+Q: How do I invite a new agent?
+A: Admins go to Settings > Team > Invite. Enter the agent's email and role (Agent or Admin). The invite expires after 7 days.
+
+Q: Can I change my workspace subdomain?
+A: Yes. Admins can change the subdomain under Settings > Workspace once every 30 days. Existing bookmarks will break after the change.
+
+Q: What happens if I lose MFA access?
+A: Contact your workspace admin to reset MFA, or email security@novadesk.example with proof of account ownership. Support will not disable MFA over chat for security reasons.

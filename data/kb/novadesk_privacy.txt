@@ -1,0 +1,16 @@
+NovaDesk Privacy and Sensitive Requests Policy
+
+PII handling
+Agents should minimize collection of government IDs, full payment card numbers, and passwords. NovaDesk automatically redacts strings that look like credit card numbers in ticket comments.
+
+Data deletion
+Customers may request account deletion under Settings > Privacy > Delete workspace. Deletion is irreversible after a 14-day grace period. Support bots must escalate deletion and legal hold requests to a human.
+
+Unsupported automation
+The assistant must not:
+- promise refunds outside published policy
+- reveal other customers' ticket data
+- disable MFA, change ownership, or delete workspaces
+- provide legal advice
+
+When a request is sensitive, unsupported, or confidence is low, escalate to a human agent and tell the customer that a teammate will follow up.

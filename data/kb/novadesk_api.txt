@@ -1,0 +1,21 @@
+NovaDesk Public API Guide
+
+Authentication
+All API requests require an API key in the header: X-API-Key: <your_key>.
+API keys are created under Settings > Developer > API keys. Keys are shown once at creation. Rotate compromised keys immediately.
+
+Rate limits
+- Starter: 60 requests/minute
+- Growth: 300 requests/minute
+- Enterprise: 1200 requests/minute
+Exceeding limits returns HTTP 429 with a Retry-After header.
+
+Common endpoints
+- GET /v1/tickets — list tickets
+- POST /v1/tickets — create a ticket
+- GET /v1/tickets/{id} — ticket detail
+- POST /v1/webhooks — register a webhook endpoint
+
+Webhooks must respond with HTTP 2xx within 5 seconds. Failed deliveries retry with exponential backoff for up to 24 hours.
+
+Sensitive actions such as deleting a workspace or exporting all customer PII require a second factor confirmation and cannot be performed by the support bot — they must be completed by a human admin in the UI.

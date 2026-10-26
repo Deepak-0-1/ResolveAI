@@ -2,13 +2,38 @@
 node_modules/
 dist/
 build/
+*.egg-info/
 .venv/
 venv/
 __pycache__/
 *.pyc
-.env
-.env.*
+# .env
+# .env.*
 !.env.example
+
+# Test / lint caches
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# Eval artifacts — keep latest measured reports; ignore stamped runs
+eval/reports/baseline_*.json
+eval/reports/baseline_*.md
+eval/reports/*.html
+!eval/reports/baseline_latest.json
+!eval/reports/baseline_latest.md
+!eval/reports/baseline_dense_latest.json
+!eval/reports/baseline_dense_latest.md
+!eval/reports/baseline_hybrid_latest.json
+!eval/reports/baseline_hybrid_latest.md
+!eval/reports/hybrid_vs_dense_latest.json
+!eval/reports/hybrid_vs_dense_latest.md
+!eval/reports/.gitkeep
+
+# Uploaded KB originals (seed docs under data/kb are committed)
+data/uploads/
 
 # OS / IDE
 .DS_Store
