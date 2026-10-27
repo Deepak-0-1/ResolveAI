@@ -1,4 +1,6 @@
-﻿# ResolveAI
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/78b5d1df-ab5d-44de-9892-e77496ec6f72" />
+
+ # ResolveAI
 
 Production-oriented **AI customer support agent**: grounded RAG answers with citations, ticket tools, and human escalation when confidence is low or the request is sensitive.
 
