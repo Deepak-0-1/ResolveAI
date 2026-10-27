@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy.orm import sessionmaker
 
 from resolveai_api.main import create_app
 from resolveai_common.redact import redact
 from resolveai_common.retry import with_retries
 from resolveai_common.settings import Settings, get_settings
+from resolveai_db.session import get_db
 
 
 def test_redact_masks_bearer_and_secrets() -> None:
@@ -65,23 +67,36 @@ def test_security_headers_and_request_id() -> None:
     assert response.headers.get("Referrer-Policy") == "no-referrer"
 
 
-def test_rate_limit_returns_429(monkeypatch) -> None:
+def test_rate_limit_returns_429(monkeypatch, db_engine) -> None:
+    """Rate limit must not require live Postgres (CI has none)."""
     monkeypatch.setenv("RATE_LIMIT_PER_MINUTE", "3")
     get_settings.cache_clear()
+    factory = sessionmaker(bind=db_engine, autoflush=False, autocommit=False)
+
+    def _override_get_db():
+        session = factory()
+        try:
+            yield session
+            session.commit()
+        except Exception:
+            session.rollback()
+            raise
+        finally:
+            session.close()
+
     try:
-        client = TestClient(create_app())
-        # /ready is excluded; hit /health which is also excluded — use /docs is excluded.
-        # Use OpenAPI-adjacent authenticated path: /auth/login is rate-limited.
-        statuses = []
-        for _ in range(5):
-            statuses.append(
+        app = create_app()
+        app.dependency_overrides[get_db] = _override_get_db
+        with TestClient(app) as client:
+            # /ready,/health,/docs are excluded; /auth/login is rate-limited.
+            statuses = [
                 client.post(
                     "/auth/login",
                     json={"email": "nobody@example.com", "password": "x"},
                 ).status_code
-            )
+                for _ in range(5)
+            ]
         assert 429 in statuses
-        assert statuses.count(429) >= 1
     finally:
         get_settings.cache_clear()
 
