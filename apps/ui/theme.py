@@ -1,4 +1,4 @@
-"""Enterprise UI Design System & Component Helpers for ResolveAI."""
+"""Jira / Atlassian Design System (ADS) UI Theme & Component Helpers for ResolveAI."""
 
 from __future__ import annotations
 
@@ -7,73 +7,121 @@ import streamlit as st
 
 CUSTOM_CSS = """
 <style>
-/* Import Inter font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+/* ==========================================================================
+   ATLASSIAN DESIGN SYSTEM (ADS) / JIRA CLOUD GLOBAL STYLES
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Charlie+Text:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 html, body, [class*="css"] {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+    color: #172B4D !important;
 }
 
-/* Main workspace background and layout */
+/* Jira Canvas / Main Layout */
+.main, .stApp {
+    background-color: #FAFBFC !important; /* Jira background canvas */
+}
+
 .main .block-container {
-    max-width: 1200px;
-    padding-top: 1.75rem;
-    padding-bottom: 2.5rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    max-width: 1240px;
+    padding-top: 1.5rem;
+    padding-bottom: 3rem;
+    padding-left: 2.25rem;
+    padding-right: 2.25rem;
 }
 
-/* Dark Navy Sidebar */
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #172B4D !important; /* Jira dark slate */
+    font-weight: 600 !important;
+    letter-spacing: -0.01em !important;
+}
+
+/* Paragraphs & Markdown */
+p, span, div, li {
+    color: #172B4D;
+}
+
+/* ==========================================================================
+   JIRA CLOUD LEFT NAVIGATION SIDEBAR
+   ========================================================================== */
 section[data-testid="stSidebar"] {
-    background-color: #0F172A !important;
-    color: #E2E8F0 !important;
-    border-right: 1px solid #1E293B;
+    background-color: #0747A6 !important; /* Authentic Atlassian Deep Blue */
+    color: #DEEBFF !important;
+    border-right: 1px solid #0C2B64 !important;
 }
 
 section[data-testid="stSidebar"] p,
 section[data-testid="stSidebar"] span,
 section[data-testid="stSidebar"] label,
 section[data-testid="stSidebar"] div {
-    color: #E2E8F0;
+    color: #DEEBFF;
 }
 
 /* Sidebar navigation links */
 section[data-testid="stSidebar"] div[data-testid="stSidebarNav"] {
-    padding-top: 0.5rem;
+    padding-top: 0.25rem;
 }
 
 section[data-testid="stSidebar"] div[data-testid="stSidebarNav"] a {
-    color: #94A3B8 !important;
-    border-radius: 6px;
-    transition: all 0.15s ease-in-out;
-    margin-bottom: 2px;
+    color: #DEEBFF !important;
+    border-radius: 3px !important;
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    margin-bottom: 2px !important;
+    transition: background-color 0.1s ease-in-out, color 0.1s ease-in-out !important;
 }
 
 section[data-testid="stSidebar"] div[data-testid="stSidebarNav"] a:hover {
     color: #FFFFFF !important;
-    background-color: #1E293B !important;
+    background-color: rgba(9, 30, 66, 0.48) !important;
 }
 
 section[data-testid="stSidebar"] div[data-testid="stSidebarNav"] a[aria-current="page"] {
     color: #FFFFFF !important;
-    background-color: #1E293B !important;
-    border-left: 3px solid #3B82F6;
-    font-weight: 600;
+    background-color: rgba(9, 30, 66, 0.72) !important;
+    border-left: 3px solid #00B8D9 !important; /* Jira Teal Active Indicator */
+    font-weight: 600 !important;
 }
 
-/* User Profile Badge in Sidebar */
+/* Jira Project / User Profile Card in Sidebar */
+.jira-sidebar-project {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    margin-bottom: 0.85rem;
+}
+
+.jira-project-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    background: #0052CC;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FFFFFF;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
 .user-profile-badge {
-    background: #1E293B;
-    border: 1px solid #334155;
-    border-radius: 8px;
-    padding: 0.85rem 1rem;
-    margin-bottom: 1.25rem;
+    background: rgba(9, 30, 66, 0.48);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
+    padding: 0.75rem 0.85rem;
+    margin-bottom: 1rem;
 }
 
 .user-profile-name {
-    color: #F8FAFC !important;
+    color: #FFFFFF !important;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     margin: 0;
     display: flex;
     align-items: center;
@@ -81,150 +129,464 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNav"] a[aria-current=
 }
 
 .user-profile-role {
-    color: #94A3B8 !important;
+    color: #B3D4FF !important;
     font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     font-weight: 500;
     margin-top: 0.2rem;
 }
 
-/* Page Header */
+/* ==========================================================================
+   USER-FRIENDLY JIRA INPUT FIELDS & FORM CONTROLS (FULL OVERRIDE)
+   ========================================================================== */
+
+/* Input Labels */
+label[data-testid="stWidgetLabel"],
+label[data-testid="stWidgetLabel"] p,
+div[data-testid="stWidgetLabel"] p {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    color: #5E6C84 !important; /* Jira N200 label grey */
+    letter-spacing: 0.01em !important;
+    margin-bottom: 4px !important;
+    text-transform: none !important;
+}
+
+/* BaseWeb Input & Textarea Containers - RESTING STATE */
+div[data-baseweb="input"],
+div[data-baseweb="base-input"],
+div[data-baseweb="textarea"] {
+    background-color: #FAFBFC !important; /* Clean Jira neutral resting bg */
+    border: 1px solid #DFE1E6 !important; /* Subtle Jira border */
+    border-radius: 3px !important;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+}
+
+/* Inner containers that BaseWeb creates */
+div[data-baseweb="input"] > div,
+div[data-baseweb="base-input"] > div,
+div[data-baseweb="textarea"] > div {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+/* Text Inputs and Textareas */
+div[data-baseweb="input"] input,
+div[data-baseweb="base-input"] input,
+div[data-baseweb="textarea"] textarea,
+.stTextInput input,
+.stTextArea textarea {
+    background-color: transparent !important;
+    color: #172B4D !important; /* High-contrast Jira Dark Slate */
+    font-size: 14px !important;
+    font-family: inherit !important;
+    padding: 8px 10px !important;
+    border: none !important;
+    outline: none !important;
+    caret-color: #0052CC !important;
+}
+
+/* Input Placeholders */
+div[data-baseweb="input"] input::placeholder,
+div[data-baseweb="base-input"] input::placeholder,
+div[data-baseweb="textarea"] textarea::placeholder,
+.stTextInput input::placeholder,
+.stTextArea textarea::placeholder {
+    color: #7A869A !important; /* Jira placeholder grey */
+    opacity: 1 !important;
+    font-size: 13.5px !important;
+}
+
+/* INPUT HOVER STATE (Jira signature subtle grey tint on hover) */
+div[data-baseweb="input"]:hover,
+div[data-baseweb="base-input"]:hover,
+div[data-baseweb="textarea"]:hover {
+    background-color: #EBECF0 !important;
+    border-color: #C1C7D0 !important;
+}
+
+/* INPUT FOCUS STATE (Jira signature crisp white bg + Atlassian Blue border & ring) */
+div[data-baseweb="input"]:focus-within,
+div[data-baseweb="base-input"]:focus-within,
+div[data-baseweb="textarea"]:focus-within {
+    background-color: #FFFFFF !important;
+    border: 2px solid #4C9AFF !important; /* Atlassian Focus Blue */
+    box-shadow: 0 0 0 1px #4C9AFF !important;
+}
+
+/* SELECTBOX / DROPDOWN CONTROLS */
+div[data-baseweb="select"] {
+    background-color: #FAFBFC !important;
+    border: 1px solid #DFE1E6 !important;
+    border-radius: 3px !important;
+    transition: all 0.15s ease-in-out !important;
+}
+
+div[data-baseweb="select"]:hover {
+    background-color: #EBECF0 !important;
+    border-color: #C1C7D0 !important;
+}
+
+div[data-baseweb="select"]:focus-within {
+    background-color: #FFFFFF !important;
+    border: 2px solid #4C9AFF !important;
+    box-shadow: 0 0 0 1px #4C9AFF !important;
+}
+
+div[data-baseweb="select"] * {
+    color: #172B4D !important;
+    font-size: 14px !important;
+}
+
+div[data-baseweb="select"] svg {
+    fill: #6B778C !important;
+}
+
+/* Select Dropdown Popover Menus */
+ul[data-baseweb="menu"],
+div[data-baseweb="popover"] {
+    background-color: #FFFFFF !important;
+    border: 1px solid #DFE1E6 !important;
+    border-radius: 4px !important;
+    box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31) !important;
+}
+
+li[data-baseweb="menu-item"] {
+    color: #172B4D !important;
+    padding: 8px 12px !important;
+    font-size: 13.5px !important;
+    transition: background-color 0.1s ease !important;
+}
+
+li[data-baseweb="menu-item"]:hover {
+    background-color: #EBECF0 !important;
+    color: #172B4D !important;
+}
+
+li[data-baseweb="menu-item"][aria-selected="true"] {
+    background-color: #DEEBFF !important;
+    color: #0052CC !important;
+    font-weight: 600 !important;
+}
+
+/* CHAT INPUT FIELD */
+[data-testid="stChatInput"] {
+    background-color: #FFFFFF !important;
+    border: 1px solid #DFE1E6 !important;
+    border-radius: 4px !important;
+    box-shadow: 0 1px 3px rgba(9, 30, 66, 0.08) !important;
+    padding: 4px 8px !important;
+}
+
+[data-testid="stChatInput"]:focus-within {
+    border: 2px solid #4C9AFF !important;
+    box-shadow: 0 0 0 1px #4C9AFF !important;
+}
+
+[data-testid="stChatInput"] textarea {
+    color: #172B4D !important;
+    background-color: transparent !important;
+    font-size: 14px !important;
+}
+
+[data-testid="stChatInputSubmitButton"] {
+    color: #0052CC !important;
+}
+
+[data-testid="stChatInputSubmitButton"]:hover {
+    background-color: #DEEBFF !important;
+    border-radius: 3px !important;
+}
+
+/* FILE UPLOADER */
+div[data-testid="stFileUploader"] section {
+    background-color: #FAFBFC !important;
+    border: 1px dashed #DFE1E6 !important;
+    border-radius: 4px !important;
+    padding: 1.25rem !important;
+}
+
+div[data-testid="stFileUploader"] section:hover {
+    background-color: #EBECF0 !important;
+    border-color: #4C9AFF !important;
+}
+
+/* CHECKBOX & RADIO */
+div[data-testid="stCheckbox"] label span:first-child,
+div[data-testid="stRadio"] label span:first-child {
+    border-color: #DFE1E6 !important;
+}
+
+/* ==========================================================================
+   JIRA BUTTONS
+   ========================================================================== */
+
+/* Primary Button */
+div[data-testid="stButton"] button[kind="primary"],
+div[data-testid="stFormSubmitButton"] button[kind="primary"] {
+    background-color: #0052CC !important; /* Jira Brand Blue */
+    border: none !important;
+    color: #FFFFFF !important;
+    border-radius: 3px !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    padding: 6px 14px !important;
+    box-shadow: none !important;
+    transition: background-color 0.1s ease-out !important;
+}
+
+div[data-testid="stButton"] button[kind="primary"]:hover,
+div[data-testid="stFormSubmitButton"] button[kind="primary"]:hover {
+    background-color: #0065FF !important;
+    color: #FFFFFF !important;
+}
+
+div[data-testid="stButton"] button[kind="primary"]:active,
+div[data-testid="stFormSubmitButton"] button[kind="primary"]:active {
+    background-color: #0747A6 !important;
+}
+
+/* Secondary / Default Button */
+div[data-testid="stButton"] button:not([kind="primary"]),
+div[data-testid="stFormSubmitButton"] button:not([kind="primary"]) {
+    background-color: rgba(9, 30, 66, 0.04) !important;
+    border: 1px solid #DFE1E6 !important;
+    color: #42526E !important;
+    border-radius: 3px !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    padding: 6px 14px !important;
+    box-shadow: none !important;
+    transition: background-color 0.1s ease-out, color 0.1s ease-out !important;
+}
+
+div[data-testid="stButton"] button:not([kind="primary"]):hover,
+div[data-testid="stFormSubmitButton"] button:not([kind="primary"]):hover {
+    background-color: #EBECF0 !important;
+    color: #172B4D !important;
+    border-color: #C1C7D0 !important;
+}
+
+div[data-testid="stButton"] button:not([kind="primary"]):active,
+div[data-testid="stFormSubmitButton"] button:not([kind="primary"]):active {
+    background-color: #DEEBFF !important;
+    color: #0052CC !important;
+}
+
+/* Sidebar Buttons */
+section[data-testid="stSidebar"] div[data-testid="stButton"] button {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #FFFFFF !important;
+}
+
+section[data-testid="stSidebar"] div[data-testid="stButton"] button:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   PAGE HEADER & JIRA ISSUE BREADCRUMBS
+   ========================================================================== */
 .page-header-container {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid #E2E8F0;
+    border-bottom: 1px solid #DFE1E6;
 }
 
 .page-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #0F172A;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #172B4D;
     margin: 0;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.015em;
     display: flex;
     align-items: center;
     gap: 0.6rem;
 }
 
 .page-subtitle {
-    font-size: 0.875rem;
-    color: #64748B;
+    font-size: 0.85rem;
+    color: #6B778C;
     margin-top: 0.25rem;
     margin-bottom: 0;
 }
 
-/* Stat Cards */
+/* ==========================================================================
+   JIRA STAT METRIC CARDS
+   ========================================================================== */
 .stat-card {
     background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 8px;
-    padding: 1.25rem;
-    box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04);
+    border: 1px solid #DFE1E6;
+    border-radius: 4px;
+    padding: 1rem 1.15rem;
+    box-shadow: 0 1px 1px rgba(9, 30, 66, 0.25), 0 0 1px 0 rgba(9, 30, 66, 0.31);
     height: 100%;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: box-shadow 0.15s ease;
 }
 
 .stat-card:hover {
-    box-shadow: 0 4px 6px -1px rgba(15, 23, 42, 0.07);
+    box-shadow: 0 4px 8px -2px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
 }
 
 .stat-label {
-    font-size: 0.775rem;
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #64748B;
-    margin-bottom: 0.35rem;
+    letter-spacing: 0.04em;
+    color: #5E6C84;
+    margin-bottom: 0.3rem;
 }
 
 .stat-value {
-    font-size: 1.75rem;
+    font-size: 1.7rem;
     font-weight: 700;
-    color: #0F172A;
+    color: #172B4D;
     line-height: 1.2;
 }
 
 .stat-hint {
     font-size: 0.75rem;
-    color: #94A3B8;
-    margin-top: 0.35rem;
+    color: #6B778C;
+    margin-top: 0.3rem;
 }
 
-/* Badges */
+/* ==========================================================================
+   JIRA LOZENGES (AUTHENTIC ATLASSIAN STATUS & PRIORITY BADGES)
+   ========================================================================== */
 .badge {
     display: inline-flex;
     align-items: center;
-    padding: 0.2rem 0.55rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    line-height: 1;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     border: 1px solid transparent;
 }
 
-.badge-open {
-    background-color: #EFF6FF;
-    color: #1D4ED8;
-    border-color: #BFDBFE;
+/* TO DO / OPEN / BACKLOG */
+.badge-open, .badge-todo, .badge-backlog {
+    background-color: #DFE1E6 !important;
+    color: #42526E !important;
+    border-color: #C1C7D0 !important;
 }
 
-.badge-pending {
-    background-color: #FFFBEB;
-    color: #B45309;
-    border-color: #FDE68A;
+/* IN PROGRESS */
+.badge-in_progress, .badge-in-progress, .badge-inprogress {
+    background-color: #DEEBFF !important;
+    color: #0747A6 !important;
+    border-color: #B3D4FF !important;
 }
 
-.badge-escalated {
-    background-color: #FEF2F2;
-    color: #B91C1C;
-    border-color: #FECACA;
+/* PENDING / IN REVIEW / MEDIUM */
+.badge-pending, .badge-in_review, .badge-medium {
+    background-color: #FFF0B3 !important;
+    color: #172B4D !important;
+    border-color: #FFE380 !important;
 }
 
-.badge-resolved {
-    background-color: #ECFDF5;
-    color: #047857;
-    border-color: #A7F3D0;
+/* DONE / RESOLVED / CLOSED */
+.badge-resolved, .badge-done, .badge-closed {
+    background-color: #E3FCEF !important;
+    color: #006644 !important;
+    border-color: #ABF5D1 !important;
 }
 
-.badge-closed {
-    background-color: #F1F5F9;
-    color: #475569;
-    border-color: #CBD5E1;
+/* ESCALATED / CRITICAL / BLOCKER */
+.badge-escalated, .badge-critical, .badge-blocker {
+    background-color: #FFEBE6 !important;
+    color: #BF2600 !important;
+    border-color: #FFBDAD !important;
 }
 
-.badge-critical {
-    background-color: #FEF2F2;
-    color: #DC2626;
-    border-color: #FCA5A5;
+/* HIGH / MAJOR */
+.badge-high, .badge-major {
+    background-color: #FFFAE6 !important;
+    color: #FF8B00 !important;
+    border-color: #FFE380 !important;
 }
 
-.badge-high {
-    background-color: #FFF7ED;
-    color: #C2410C;
-    border-color: #FDBA74;
+/* LOW / MINOR */
+.badge-low, .badge-minor {
+    background-color: #EAE6FF !important;
+    color: #403294 !important;
+    border-color: #C0B6F2 !important;
 }
 
-.badge-medium {
-    background-color: #FEFCE8;
-    color: #A16207;
-    border-color: #FEF08A;
-}
-
-.badge-low {
-    background-color: #F0FDF4;
-    color: #15803D;
-    border-color: #BBF7D0;
-}
-
-/* Card Containers */
+/* ==========================================================================
+   JIRA PANELS, CARDS & EXPANDERS
+   ========================================================================== */
 .content-card {
     background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 8px;
-    padding: 1.25rem;
-    box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04);
-    margin-bottom: 1.25rem;
+    border: 1px solid #DFE1E6;
+    border-radius: 4px;
+    padding: 1.15rem;
+    box-shadow: 0 1px 1px rgba(9, 30, 66, 0.25), 0 0 1px 0 rgba(9, 30, 66, 0.31);
+    margin-bottom: 1.15rem;
+}
+
+/* Streamlit Builtin Container Borders */
+div[data-testid="stVerticalBlock"] > div[data-testid="stVerticalBlockBorderWrapper"] {
+    background: #FFFFFF !important;
+    border: 1px solid #DFE1E6 !important;
+    border-radius: 4px !important;
+    box-shadow: 0 1px 1px rgba(9, 30, 66, 0.15) !important;
+}
+
+/* Streamlit Expanders */
+details[data-testid="stExpander"] {
+    background: #FFFFFF !important;
+    border: 1px solid #DFE1E6 !important;
+    border-radius: 4px !important;
+    box-shadow: 0 1px 1px rgba(9, 30, 66, 0.08) !important;
+    margin-bottom: 0.75rem !important;
+}
+
+details[data-testid="stExpander"] summary {
+    background-color: #FAFBFC !important;
+    color: #172B4D !important;
+    font-weight: 600 !important;
+    font-size: 0.875rem !important;
+    padding: 0.65rem 1rem !important;
+    border-radius: 3px !important;
+    transition: background-color 0.1s ease-in-out !important;
+}
+
+details[data-testid="stExpander"] summary:hover {
+    background-color: #EBECF0 !important;
+}
+
+details[data-testid="stExpander"][open] summary {
+    border-bottom: 1px solid #DFE1E6 !important;
+}
+
+/* Streamlit Tabs */
+div[data-baseweb="tab-list"] {
+    border-bottom: 2px solid #DFE1E6 !important;
+    gap: 0.5rem !important;
+}
+
+button[data-baseweb="tab"] {
+    color: #5E6C84 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    padding: 8px 12px !important;
+    border-radius: 3px 3px 0 0 !important;
+}
+
+button[data-baseweb="tab"]:hover {
+    color: #0052CC !important;
+    background-color: #EBECF0 !important;
+}
+
+button[data-baseweb="tab"][aria-selected="true"] {
+    color: #0052CC !important;
+    font-weight: 600 !important;
+    border-bottom: 2px solid #0052CC !important;
 }
 
 /* Empty State */
@@ -232,31 +594,31 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNav"] a[aria-current=
     text-align: center;
     padding: 2.5rem 1.5rem;
     background: #FFFFFF;
-    border: 1px dashed #CBD5E1;
-    border-radius: 8px;
+    border: 1px dashed #DFE1E6;
+    border-radius: 4px;
     margin: 1rem 0;
 }
 
 .empty-state-title {
     font-size: 1rem;
     font-weight: 600;
-    color: #334155;
+    color: #172B4D;
     margin-top: 0.5rem;
     margin-bottom: 0.25rem;
 }
 
 .empty-state-desc {
     font-size: 0.85rem;
-    color: #64748B;
-    max-width: 420px;
+    color: #6B778C;
+    max-width: 440px;
     margin: 0 auto;
 }
 
-/* Citations & Sources Box */
+/* Citations & Evidence Box */
 .citation-item {
-    background: #F8FAFC;
-    border: 1px solid #E2E8F0;
-    border-radius: 6px;
+    background: #FAFBFC;
+    border: 1px solid #DFE1E6;
+    border-radius: 3px;
     padding: 0.75rem 1rem;
     margin-bottom: 0.5rem;
 }
@@ -271,97 +633,75 @@ section[data-testid="stSidebar"] div[data-testid="stSidebarNav"] a[aria-current=
 .citation-title {
     font-weight: 600;
     font-size: 0.85rem;
-    color: #1E293B;
+    color: #0052CC;
 }
 
 .citation-score {
     font-size: 0.75rem;
-    color: #2563EB;
+    color: #0052CC;
     font-weight: 600;
-    background: #EFF6FF;
+    background: #DEEBFF;
     padding: 0.15rem 0.45rem;
-    border-radius: 4px;
+    border-radius: 3px;
 }
 
 .citation-snippet {
     font-size: 0.8rem;
-    color: #475569;
+    color: #344563;
     line-height: 1.45;
 }
 
-/* Activity item */
-.activity-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #F1F5F9;
-}
-
-.activity-item:last-child {
-    border-bottom: none;
-}
-
-/* Clean buttons */
-div[data-testid="stButton"] button {
-    border-radius: 6px;
-    font-weight: 500;
-    padding: 0.4rem 0.9rem;
-    transition: all 0.15s ease-in-out;
-}
-
-/* Primary submit button */
-div[data-testid="stButton"] button[kind="primary"] {
-    background-color: #2563EB !important;
-    border-color: #2563EB !important;
-    color: #FFFFFF !important;
-}
-
-div[data-testid="stButton"] button[kind="primary"]:hover {
-    background-color: #1D4ED8 !important;
-    border-color: #1D4ED8 !important;
-}
-
-/* Chat bubble enhancements */
+/* Chat Messages */
 [data-testid="stChatMessage"] {
-    border-radius: 8px;
+    border-radius: 4px;
     padding: 1rem;
     margin-bottom: 0.75rem;
-    border: 1px solid #E2E8F0;
+    border: 1px solid #DFE1E6;
     background-color: #FFFFFF;
+    box-shadow: 0 1px 2px rgba(9, 30, 66, 0.08);
 }
 
-/* Escalation Callout */
+/* Escalation Callout (Jira Critical / Warning Banner) */
 .escalation-callout {
-    background-color: #FFF1F2;
-    border-left: 4px solid #E11D48;
+    background-color: #FFEBE6;
+    border-left: 4px solid #DE350B;
     padding: 0.85rem 1.15rem;
-    border-radius: 0 6px 6px 0;
+    border-radius: 0 4px 4px 0;
     margin: 0.75rem 0;
 }
 
 .escalation-title {
-    color: #9F1239;
+    color: #BF2600;
     font-weight: 600;
     font-size: 0.9rem;
     margin: 0 0 0.25rem 0;
 }
 
 .escalation-desc {
-    color: #881337;
+    color: #42526E;
     font-size: 0.825rem;
     margin: 0;
 }
 
-/* Diagnostic / Dev Panel */
+/* Diagnostic / Trace Panel */
 .dev-panel {
-    background-color: #0F172A;
-    color: #E2E8F0;
-    border-radius: 6px;
+    background-color: #091E42;
+    color: #DEEBFF;
+    border-radius: 3px;
     padding: 0.75rem 1rem;
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-size: 0.75rem;
     margin-top: 0.5rem;
+}
+
+/* Code Snippets & Tags */
+code {
+    background-color: #F4F5F7 !important;
+    border: 1px solid #DFE1E6 !important;
+    color: #172B4D !important;
+    padding: 0.15rem 0.35rem !important;
+    border-radius: 3px !important;
+    font-size: 0.85em !important;
 }
 
 /* Hide streamlit default branding */
@@ -373,13 +713,13 @@ header {visibility: hidden;}
 
 
 def apply_theme() -> None:
-    """Inject global design system CSS."""
+    """Inject global Jira / Atlassian Design System CSS."""
     st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 
 def render_header(title: str, subtitle: str, badge: str | None = None) -> None:
-    """Render a standardized page header with optional badge."""
-    badge_html = f'<span class="badge badge-open" style="font-size:0.8rem; margin-left:0.5rem;">{badge}</span>' if badge else ""
+    """Render a standardized Jira-style page header with optional lozenge."""
+    badge_html = f'<span class="badge badge-open" style="margin-left:0.6rem;">{badge}</span>' if badge else ""
     st.markdown(
         f"""
         <div class="page-header-container">
@@ -392,7 +732,7 @@ def render_header(title: str, subtitle: str, badge: str | None = None) -> None:
 
 
 def render_stat_card(label: str, value: str | int, hint: str = "") -> None:
-    """Render an enterprise stat metric card."""
+    """Render a Jira enterprise metric stat card."""
     hint_html = f'<div class="stat-hint">{hint}</div>' if hint else ""
     st.markdown(
         f"""
@@ -407,25 +747,41 @@ def render_stat_card(label: str, value: str | int, hint: str = "") -> None:
 
 
 def get_status_badge_html(status: str) -> str:
-    """Return HTML for a status badge."""
-    status_lower = (status or "open").lower()
-    css_class = f"badge-{status_lower}" if status_lower in ("open", "pending", "escalated", "resolved", "closed") else "badge-open"
-    return f'<span class="badge {css_class}">{status.upper()}</span>'
+    """Return HTML for an authentic Jira Lozenge status badge."""
+    raw = (status or "open").lower().replace(" ", "_").replace("-", "_")
+    if raw in ("resolved", "done", "closed"):
+        css = "badge-resolved"
+    elif raw in ("in_progress", "inprogress", "progress"):
+        css = "badge-in_progress"
+    elif raw in ("pending", "in_review", "review"):
+        css = "badge-pending"
+    elif raw in ("escalated", "critical", "blocker"):
+        css = "badge-escalated"
+    else:
+        css = "badge-open"
+    return f'<span class="badge {css}">{status.upper()}</span>'
 
 
 def get_priority_badge_html(priority: str) -> str:
-    """Return HTML for a priority badge."""
+    """Return HTML for an authentic Jira Lozenge priority badge."""
     p_lower = (priority or "medium").lower()
-    css_class = f"badge-{p_lower}" if p_lower in ("low", "medium", "high", "critical") else "badge-medium"
-    return f'<span class="badge {css_class}">{priority.upper()}</span>'
+    if p_lower in ("critical", "blocker"):
+        css = "badge-critical"
+    elif p_lower in ("high", "major"):
+        css = "badge-high"
+    elif p_lower == "low":
+        css = "badge-low"
+    else:
+        css = "badge-medium"
+    return f'<span class="badge {css}">{priority.upper()}</span>'
 
 
 def render_empty_state(title: str, message: str, icon: str = "inbox") -> None:
-    """Render a clean empty state card."""
+    """Render a clean Jira-style empty state card."""
     st.markdown(
         f"""
         <div class="empty-state">
-            <div style="font-size: 2rem; color: #94A3B8;">●</div>
+            <div style="font-size: 1.75rem; color: #6B778C;">◻</div>
             <div class="empty-state-title">{title}</div>
             <div class="empty-state-desc">{message}</div>
         </div>
@@ -435,14 +791,13 @@ def render_empty_state(title: str, message: str, icon: str = "inbox") -> None:
 
 
 def format_datetime(dt_val: str | datetime | None) -> str:
-    """Format ISO timestamp to readable UTC date/time."""
+    """Format ISO timestamp to readable UTC date/time in Jira format."""
     if not dt_val:
         return "—"
     if isinstance(dt_val, str):
         try:
-            # Handle standard ISO strings
             dt = datetime.fromisoformat(dt_val.replace("Z", "+00:00"))
-            return dt.strftime("%b %d, %Y %H:%M")
+            return dt.strftime("%b %d, %Y, %I:%M %p")
         except Exception:
             return dt_val[:16].replace("T", " ")
-    return dt_val.strftime("%b %d, %Y %H:%M")
+    return dt_val.strftime("%b %d, %Y, %I:%M %p")

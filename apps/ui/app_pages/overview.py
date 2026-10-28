@@ -138,12 +138,12 @@ if is_admin:
         # Knowledge base status bar
         st.markdown(
             f"""
-            <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:8px; padding:0.85rem 1rem; margin-top:0.75rem; display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-size:0.85rem; color:#475569; font-weight:500;">Knowledge Base Ingestion Status</span>
+            <div style="background:#FFFFFF; border:1px solid #DFE1E6; border-radius:4px; padding:0.85rem 1rem; margin-top:0.75rem; display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:0.85rem; color:#5E6C84; font-weight:600;">Knowledge Base Ingestion Status</span>
                 <div>
-                    <span style="color:#2563EB; font-weight:600; margin-right:1rem;">📚 {kb_stats.get('total_documents', 0)} Total</span>
-                    <span style="color:#059669; font-weight:600; margin-right:1rem;">✅ {kb_stats.get('indexed_documents', 0)} Indexed</span>
-                    <span style="color:#DC2626; font-weight:600;">⚠️ {kb_stats.get('failed_documents', 0)} Failed</span>
+                    <span style="color:#0052CC; font-weight:600; margin-right:1rem;">📚 {kb_stats.get('total_documents', 0)} Total</span>
+                    <span style="color:#006644; font-weight:600; margin-right:1rem;">✅ {kb_stats.get('indexed_documents', 0)} Indexed</span>
+                    <span style="color:#BF2600; font-weight:600;">⚠️ {kb_stats.get('failed_documents', 0)} Failed</span>
                 </div>
             </div>
             """,
@@ -198,15 +198,15 @@ with row_col2:
                         f"""
                         <div style="display:flex; justify-content:space-between; align-items:flex-start;">
                             <div>
-                                <span style="font-weight:600; color:#1E293B; font-size:0.9rem;">{esc['subject']}</span><br>
-                                <span style="font-size:0.75rem; color:#64748B;">Ticket: <code>{esc['ticket_id'][:8]}…</code></span>
+                                <span style="font-weight:600; color:#172B4D; font-size:0.9rem;">{esc['subject']}</span><br>
+                                <span style="font-size:0.75rem; color:#5E6C84;">Ticket: <code>{esc['ticket_id'][:8]}…</code></span>
                             </div>
                             {get_priority_badge_html(esc['priority'])}
                         </div>
-                        <div style="background:#FFF1F2; border:1px solid #FECACA; border-radius:4px; padding:0.4rem 0.6rem; margin-top:0.4rem; font-size:0.8rem; color:#9F1239;">
+                        <div style="background:#FFEBE6; border:1px solid #FFBDAD; border-radius:3px; padding:0.4rem 0.6rem; margin-top:0.4rem; font-size:0.8rem; color:#BF2600;">
                             <strong>Reason:</strong> {esc['reason']}
                         </div>
-                        <div style="font-size:0.75rem; color:#94A3B8; margin-top:0.35rem;">
+                        <div style="font-size:0.75rem; color:#6B778C; margin-top:0.35rem;">
                             Escalated at {format_datetime(esc.get('timestamp'))}
                         </div>
                         """,

@@ -72,10 +72,10 @@ if "draft_comment_text" not in st.session_state:
 if is_configured and is_connected:
     st.markdown(
         f"""
-        <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:8px; padding:0.85rem 1.25rem; margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:center;">
+        <div style="background:#E3FCEF; border:1px solid #ABF5D1; border-radius:3px; padding:0.85rem 1.25rem; margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:center;">
             <div>
-                <strong style="color:#166534; font-size:0.95rem;">● Connected to Jira Cloud</strong>
-                <div style="font-size:0.8rem; color:#15803D; margin-top:2px;">
+                <strong style="color:#006644; font-size:0.95rem;">● Connected to Jira Cloud</strong>
+                <div style="font-size:0.8rem; color:#006644; margin-top:2px;">
                     Endpoint: <code>{status_info.get('base_url')}</code> · Project Key: <code>{status_info.get('project_key') or 'All Projects'}</code>
                 </div>
             </div>
@@ -87,9 +87,9 @@ if is_configured and is_connected:
 elif is_configured and not is_connected:
     st.markdown(
         f"""
-        <div style="background:#FFF1F2; border:1px solid #FECACA; border-radius:8px; padding:0.85rem 1.25rem; margin-bottom:1.25rem;">
-            <strong style="color:#9F1239; font-size:0.95rem;">⚠️ Jira Connection Error</strong>
-            <div style="font-size:0.8rem; color:#881337; margin-top:2px;">
+        <div style="background:#FFEBE6; border:1px solid #FFBDAD; border-radius:3px; padding:0.85rem 1.25rem; margin-bottom:1.25rem;">
+            <strong style="color:#BF2600; font-size:0.95rem;">⚠️ Jira Connection Error</strong>
+            <div style="font-size:0.8rem; color:#BF2600; margin-top:2px;">
                 {status_info.get('message')}
             </div>
         </div>
@@ -99,12 +99,12 @@ elif is_configured and not is_connected:
 else:
     st.markdown(
         """
-        <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:1rem 1.25rem; margin-bottom:1.25rem;">
+        <div style="background:#FAFBFC; border:1px solid #DFE1E6; border-radius:3px; padding:1rem 1.25rem; margin-bottom:1.25rem;">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <strong style="color:#1E293B; font-size:0.95rem;">ℹ️ Jira Cloud Not Configured (Demo Mode Active)</strong>
+                <strong style="color:#172B4D; font-size:0.95rem;">ℹ️ Jira Cloud Not Configured (Demo Mode Active)</strong>
                 <span class="badge badge-pending">LOCAL SANDBOX</span>
             </div>
-            <div style="font-size:0.825rem; color:#64748B; margin-top:0.4rem; line-height:1.5;">
+            <div style="font-size:0.825rem; color:#5E6C84; margin-top:0.4rem; line-height:1.5;">
                 To connect to live Jira Cloud, set <code>JIRA_BASE_URL</code>, <code>JIRA_EMAIL</code>, and <code>JIRA_API_TOKEN</code> in your <code>.env</code> file.<br>
                 You can test and demonstrate the complete AI investigation workflow right now using built-in sandbox demo issues:
             </div>
@@ -189,7 +189,7 @@ if issue:
         st.markdown("#### Description")
         st.markdown(
             f"""
-            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:6px; padding:0.85rem 1rem; font-size:0.875rem; color:#334155; line-height:1.5;">
+            <div style="background:#FAFBFC; border:1px solid #DFE1E6; border-radius:3px; padding:0.85rem 1rem; font-size:0.875rem; color:#172B4D; line-height:1.5;">
                 {issue.get('description') or '<em>No description provided.</em>'}
             </div>
             """,

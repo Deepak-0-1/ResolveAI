@@ -11,9 +11,9 @@ apply_theme()
 st.markdown(
     """
     <div style="max-width: 480px; margin: 2rem auto 1.5rem auto; text-align: center;">
-        <div style="background:#2563EB; color:white; font-weight:700; font-size:1.5rem; width:48px; height:48px; border-radius:12px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:1rem;">R</div>
-        <h1 style="font-size:1.75rem; font-weight:700; color:#0F172A; margin:0 0 0.5rem 0;">Welcome to ResolveAI</h1>
-        <p style="color:#64748B; font-size:0.925rem; margin:0;">Enterprise AI-Powered Customer Resolution & Support Platform</p>
+        <div style="background:#0052CC; color:white; font-weight:700; font-size:1.5rem; width:48px; height:48px; border-radius:4px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:1rem; box-shadow:0 1px 3px rgba(9,30,66,0.25);">R</div>
+        <h1 style="font-size:1.65rem; font-weight:600; color:#172B4D; margin:0 0 0.5rem 0; letter-spacing:-0.01em;">Log in to ResolveAI</h1>
+        <p style="color:#5E6C84; font-size:0.9rem; margin:0;">AI Support & Jira Investigation Platform</p>
     </div>
     """,
     unsafe_allow_html=True,
@@ -37,7 +37,7 @@ with col_center:
             st.rerun()
 
     with st.form("login_form", border=True):
-        st.markdown("<h3 style='margin-top:0; font-size:1.1rem; color:#1E293B;'>Sign in to your account</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='margin-top:0; font-size:1.05rem; font-weight:600; color:#172B4D;'>Sign in to your account</h3>", unsafe_allow_html=True)
         email = st.text_input(
             "Work Email",
             value=st.session_state.login_email_prefill,
@@ -68,12 +68,13 @@ with col_center:
 
     st.markdown(
         """
-        <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:1rem; margin-top:1.25rem; font-size:0.8rem; color:#64748B;">
-            <strong style="color:#334155;">Demo Credentials (Local Environment)</strong><br>
+        <div style="background:#FAFBFC; border:1px solid #DFE1E6; border-radius:4px; padding:1rem; margin-top:1.25rem; font-size:0.8rem; color:#5E6C84;">
+            <strong style="color:#172B4D;">Demo Credentials (Local Environment)</strong><br>
             • Customer: <code>customer@resolveai.local</code> / <code>customer123!</code><br>
             • Admin: <code>admin@resolveai.local</code> / <code>admin123!</code><br>
-            <span style="font-size:0.75rem; color:#94A3B8; margin-top:4px; display:inline-block;">Passwords are never prefilled into inputs. For production, rotate all default secrets in .env.</span>
+            <span style="font-size:0.75rem; color:#6B778C; margin-top:4px; display:inline-block;">Passwords are never prefilled into inputs. For production, rotate all default secrets in .env.</span>
         </div>
         """,
         unsafe_allow_html=True,
     )
+

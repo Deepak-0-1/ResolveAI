@@ -82,7 +82,7 @@ SUGGESTED_QUESTIONS = [
 ]
 
 if not st.session_state.chat_history:
-    st.markdown("<div style='font-size:0.875rem; font-weight:600; color:#475569; margin-bottom:0.5rem;'>Suggested Inquiries</div>", unsafe_allow_html=True)
+    st.markdown("<div style='font-size:0.875rem; font-weight:600; color:#5E6C84; margin-bottom:0.5rem;'>Suggested Inquiries</div>", unsafe_allow_html=True)
     suggested_cols = st.columns(4)
     for idx, (label, question) in enumerate(SUGGESTED_QUESTIONS):
         with suggested_cols[idx]:

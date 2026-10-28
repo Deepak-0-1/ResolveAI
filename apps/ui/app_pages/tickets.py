@@ -222,18 +222,18 @@ if st.session_state.selected_ticket_id:
 
             if role == "user":
                 with st.chat_message("user"):
-                    st.markdown(f"**Customer** · <span style='font-size:0.75rem; color:#94A3B8;'>{created}</span>", unsafe_allow_html=True)
+                    st.markdown(f"**Customer** · <span style='font-size:0.75rem; color:#6B778C;'>{created}</span>", unsafe_allow_html=True)
                     st.markdown(content)
             elif role in ("agent", "assistant"):
                 is_draft = content.startswith("[DRAFT]")
                 avatar = "🤖" if (role == "assistant" and not is_draft) else ("✍️" if is_draft else "🧑‍💼")
                 with st.chat_message("assistant", avatar=avatar):
                     badge_label = "AI Assistant (Automated)" if role == "assistant" and not is_draft else ("Staff Draft" if is_draft else "Human Support Agent")
-                    st.markdown(f"**{badge_label}** · <span style='font-size:0.75rem; color:#94A3B8;'>{created}</span>", unsafe_allow_html=True)
+                    st.markdown(f"**{badge_label}** · <span style='font-size:0.75rem; color:#6B778C;'>{created}</span>", unsafe_allow_html=True)
                     st.markdown(content)
             else:
                 with st.chat_message("system"):
-                    st.markdown(f"**System** · <span style='font-size:0.75rem; color:#94A3B8;'>{created}</span>", unsafe_allow_html=True)
+                    st.markdown(f"**System** · <span style='font-size:0.75rem; color:#6B778C;'>{created}</span>", unsafe_allow_html=True)
                     st.markdown(content)
 
     # Reply Box
@@ -350,7 +350,7 @@ else:
                 st.markdown(f"**{t['subject']}**")
                 st.markdown(
                     f"""
-                    <span style="font-size:0.775rem; color:#64748B;">
+                    <span style="font-size:0.775rem; color:#5E6C84;">
                         ID: <code>{t['id'][:8]}…</code> ·
                         Category: <strong>{t.get('category') or 'General'}</strong> ·
                         Created: {format_datetime(t.get('created_at'))}

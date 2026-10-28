@@ -48,10 +48,10 @@ if "selected_review_ticket_id" not in st.session_state:
 # Queue Status Metric Header
 st.markdown(
     f"""
-    <div style="background:#FFFFFF; border:1px solid #E2E8F0; border-radius:8px; padding:0.85rem 1.25rem; margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:center;">
+    <div style="background:#FFFFFF; border:1px solid #DFE1E6; border-radius:4px; padding:0.85rem 1.25rem; margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:center;">
         <div>
-            <span style="font-size:0.9rem; font-weight:600; color:#1E293B;">Pending Specialist Review</span>
-            <span style="font-size:0.8rem; color:#64748B; margin-left:0.5rem;">({len(escalated_tickets)} ticket{'s' if len(escalated_tickets) != 1 else ''} in queue)</span>
+            <span style="font-size:0.9rem; font-weight:600; color:#172B4D;">Pending Specialist Review</span>
+            <span style="font-size:0.8rem; color:#5E6C84; margin-left:0.5rem;">({len(escalated_tickets)} ticket{'s' if len(escalated_tickets) != 1 else ''} in queue)</span>
         </div>
         <span class="badge badge-escalated">{len(escalated_tickets)} AWAITING ACTION</span>
     </div>

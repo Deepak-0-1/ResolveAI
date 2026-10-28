@@ -78,7 +78,7 @@ with st.container(border=True):
     with u_col2:
         st.markdown(
             """
-            <div style="font-size:0.75rem; color:#64748B; padding-top:1.5rem;">
+            <div style="font-size:0.75rem; color:#5E6C84; padding-top:1.5rem;">
                 <strong>Formats Supported:</strong><br>
                 • <code>.pdf</code> (PyPDF parsing)<br>
                 • <code>.docx</code> (Word document)<br>

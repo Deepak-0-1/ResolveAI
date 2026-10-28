@@ -52,11 +52,11 @@ hybrid = comp_data.get("hybrid", {})
 # Banner distinguishing Offline vs Live tests
 st.markdown(
     """
-    <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:8px; padding:0.85rem 1.15rem; margin-bottom:1.25rem;">
-        <div style="font-weight:600; color:#166534; font-size:0.9rem;">
+    <div style="background:#E3FCEF; border:1px solid #ABF5D1; border-radius:3px; padding:0.85rem 1.15rem; margin-bottom:1.25rem;">
+        <div style="font-weight:600; color:#006644; font-size:0.9rem;">
             🔬 Verified Benchmark Run (Golden Test Suite: 120 Cases)
         </div>
-        <div style="font-size:0.8rem; color:#15803D; margin-top:0.25rem;">
+        <div style="font-size:0.8rem; color:#006644; margin-top:0.25rem;">
             <strong>Test Harness Mode:</strong> Deterministic Offline Benchmark using <code>golden_v1.jsonl</code>.<br>
             All figures below reflect un-fabricated measurements recorded by the test runner.
             For live Ollama+Qdrant evaluation runs, use <code>resolveai-eval --live</code>.

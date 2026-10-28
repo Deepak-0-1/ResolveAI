@@ -90,22 +90,22 @@ else:
     role_label = "Administrator" if is_admin else "Customer"
     user_name = user.get("full_name") or user.get("email", "User")
 
-    # Render branded sidebar header
+    # Render branded Jira sidebar header
     with st.sidebar:
         st.markdown(
             f"""
-            <div style="padding: 0.5rem 0 1rem 0;">
-                <div style="display:flex; align-items:center; gap:0.5rem;">
-                    <div style="background:#2563EB; color:white; font-weight:700; font-size:1.1rem; width:34px; height:34px; border-radius:8px; display:flex; align-items:center; justify-content:center;">R</div>
-                    <div>
-                        <div style="font-weight:700; font-size:1.1rem; color:#FFFFFF; letter-spacing:-0.02em;">ResolveAI</div>
-                        <div style="font-size:0.75rem; color:#94A3B8;">Customer Resolution Engine</div>
-                    </div>
+            <div class="jira-sidebar-project">
+                <div class="jira-project-icon">
+                    <span style="font-weight:800; font-size:1.1rem; color:#FFFFFF;">R</span>
+                </div>
+                <div>
+                    <div style="font-weight:700; font-size:1rem; color:#FFFFFF; letter-spacing:-0.01em;">ResolveAI</div>
+                    <div style="font-size:0.725rem; color:#DEEBFF; letter-spacing:0.02em;">JIRA SERVICE MANAGEMENT</div>
                 </div>
             </div>
             <div class="user-profile-badge">
                 <div class="user-profile-name">
-                    <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background-color:#10B981;"></span>
+                    <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background-color:#36B37E;"></span>
                     {user_name}
                 </div>
                 <div class="user-profile-role">{role_label} · {user.get('email')}</div>

@@ -73,16 +73,16 @@ else:
         detail = dep.get("detail")
 
         is_ok = status_val == "ok"
-        border_color = "#BBF7D0" if is_ok else "#FECACA"
-        bg_color = "#F0FDF4" if is_ok else "#FFF1F2"
+        border_color = "#ABF5D1" if is_ok else "#FFBDAD"
+        bg_color = "#E3FCEF" if is_ok else "#FFEBE6"
         badge_class = "badge-resolved" if is_ok else "badge-escalated"
 
         st.markdown(
             f"""
-            <div style="background:{bg_color}; border:1px solid {border_color}; border-radius:8px; padding:0.85rem 1.25rem; margin-bottom:0.75rem; display:flex; justify-content:space-between; align-items:center;">
+            <div style="background:{bg_color}; border:1px solid {border_color}; border-radius:3px; padding:0.85rem 1.25rem; margin-bottom:0.75rem; display:flex; justify-content:space-between; align-items:center;">
                 <div>
-                    <strong style="color:#1E293B; font-size:0.95rem;">{name}</strong>
-                    <div style="font-size:0.775rem; color:#64748B; margin-top:2px;">
+                    <strong style="color:#172B4D; font-size:0.95rem;">{name}</strong>
+                    <div style="font-size:0.775rem; color:#5E6C84; margin-top:2px;">
                         {detail if detail else 'Responding within healthy latency bounds'}
                     </div>
                 </div>
