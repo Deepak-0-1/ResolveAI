@@ -67,6 +67,23 @@ class Settings(BaseSettings):
     http_max_retries: int = 2
     http_retry_backoff_seconds: float = 0.4
 
+    # Jira Cloud integration
+    jira_base_url: str | None = None
+    jira_email: str | None = None
+    jira_api_token: str | None = None
+    jira_project_key: str | None = None
+    jira_webhook_secret: str | None = None
+    jira_auto_investigate: bool = False
+
+    @property
+    def is_jira_configured(self) -> bool:
+        return bool(
+            self.jira_base_url
+            and self.jira_email
+            and self.jira_api_token
+            and "your-domain" not in self.jira_base_url
+        )
+
     @property
     def escalate_keyword_list(self) -> list[str]:
         return [k.strip().lower() for k in self.escalate_keywords.split(",") if k.strip()]

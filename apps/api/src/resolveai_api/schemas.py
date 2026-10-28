@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Annotated
+from typing import Annotated, Any
 
 from pydantic import AfterValidator, BaseModel, ConfigDict, Field
 
@@ -93,6 +93,64 @@ class MessageOut(BaseModel):
 
 class TicketDetail(TicketOut):
     messages: list[MessageOut] = Field(default_factory=list)
+
+
+class TicketUpdate(BaseModel):
+    status: TicketStatus | None = None
+    category: str | None = Field(default=None, max_length=100)
+    priority: TicketPriority | None = None
+    urgency: TicketUrgency | None = None
+
+
+class MessageCreate(BaseModel):
+    content: str = Field(min_length=1, max_length=10_000)
+    role: str = Field(default="agent")
+
+
+class PriorityDistribution(BaseModel):
+    low: int = 0
+    medium: int = 0
+    high: int = 0
+    critical: int = 0
+
+
+class StatusDistribution(BaseModel):
+    open: int = 0
+    pending: int = 0
+    escalated: int = 0
+    resolved: int = 0
+    closed: int = 0
+
+
+class KnowledgeBaseStats(BaseModel):
+    total_documents: int = 0
+    indexed_documents: int = 0
+    failed_documents: int = 0
+    total_chunks: int = 0
+
+
+class EscalationActivity(BaseModel):
+    ticket_id: str
+    subject: str
+    reason: str
+    timestamp: datetime
+    priority: str
+
+
+class OverviewAnalyticsOut(BaseModel):
+    total_tickets: int
+    open_tickets: int
+    resolved_tickets: int
+    escalated_tickets: int
+    status_distribution: StatusDistribution
+    priority_distribution: PriorityDistribution
+    category_distribution: dict[str, int]
+    kb_stats: KnowledgeBaseStats
+    recent_escalations: list[EscalationActivity]
+    ai_resolutions_count: int
+    ai_escalations_count: int
+    feedback_positive: int
+    feedback_negative: int
 
 
 class DocumentOut(BaseModel):
@@ -195,3 +253,97 @@ class FeedbackOut(BaseModel):
     comment: str | None
     ticket_id: str | None
     created_at: datetime
+
+
+class JiraStatusOut(BaseModel):
+    configured: bool
+    base_url: str
+    project_key: str
+    connection_ok: bool
+    message: str
+
+
+class JiraCommentOut(BaseModel):
+    id: str
+    author: str
+    body: str
+    created: str
+
+
+class JiraIssueOut(BaseModel):
+    key: str
+    summary: str
+    description: str
+    status: str
+    priority: str
+    created: str
+    updated: str
+    reporter: str
+    assignee: str | None = None
+    project_key: str
+    comments: list[JiraCommentOut] = Field(default_factory=list)
+
+
+class JiraInvestigateRequest(BaseModel):
+    issue_key: str = Field(min_length=1, max_length=50)
+    override_summary: str | None = Field(default=None, max_length=500)
+    override_description: str | None = Field(default=None, max_length=20_000)
+
+
+class JiraInvestigationOut(BaseModel):
+    issue_key: str
+    status: str
+    problem_summary: str
+    category: str
+    priority: str
+    urgency: str
+    confidence_score: float
+    confidence_method: str
+    evidence_found: list[str] = Field(default_factory=list)
+    citations: list[CitationOut] = Field(default_factory=list)
+    similar_past_tickets: list[dict[str, Any]] = Field(default_factory=list)
+    investigation_steps: list[str] = Field(default_factory=list)
+    proposed_root_cause: str
+    recommended_resolution: str
+    missing_information_or_risks: list[str] = Field(default_factory=list)
+    human_approval_required: bool
+    draft_jira_comment: str
+    trace: list[str] = Field(default_factory=list)
+
+
+class JiraCommentPublishRequest(BaseModel):
+    comment: str = Field(min_length=1, max_length=20_000)
+
+
+class JiraCommentPublishResponse(BaseModel):
+    ok: bool
+    comment_id: str
+    duplicate_prevented: bool = False
+    message: str
+
+
+class JiraTransitionOut(BaseModel):
+    id: str
+    name: str
+    to_status: str
+
+
+class JiraTransitionRequest(BaseModel):
+    transition: str = Field(min_length=1, max_length=100)
+
+
+class JiraTransitionResponse(BaseModel):
+    ok: bool
+    issue_key: str
+    transition_name: str
+    message: str
+
+
+class JiraWebhookResponse(BaseModel):
+    ok: bool
+    event: str
+    issue_key: str | None = None
+    investigated: bool = False
+    message: str
+
+

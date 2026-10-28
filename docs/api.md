@@ -222,6 +222,57 @@ List documents (`id`, `filename`, `title`, `status`, `chunk_count`, …).
 
 ---
 
+## Jira Integration & AI Investigation
+
+Enterprise Jira Cloud integration layer with hybrid RAG, precedent searching, and safe human-in-the-loop workflows.
+
+> **7. Remaining Incomplete Features or Known Gaps & Deliberate Safety Constraints:**
+> - **Atlassian Webhooks**: Inbound Jira webhooks (automatic triggering on issue creation in Jira) are not implemented; investigation is currently initiated on-demand by authorized staff to prevent runaway LLM costs and ensure human oversight.
+> - **Bi-directional Status Synchronization**: The application deliberately refrains from auto-transitioning Jira issue statuses (e.g. Open -> Resolved) to satisfy safety and least-privilege requirements; state transitions remain under staff discretion.
+
+### `GET /jira/status`
+Check connection health, base URL, and project key configuration. Requires Admin role.
+
+### `GET /jira/issues/{issue_key}`
+Fetch issue summary, ADF-parsed description, priority, status, and comments from Jira (or built-in sandbox for `DEMO-101`, `DEMO-102`). Requires Admin role.
+
+### `POST /jira/investigate`
+Execute LangGraph AI investigation on a Jira issue key:
+```json
+{
+  "issue_key": "SUP-101",
+  "override_summary": "Optional manual override",
+  "override_description": "Optional manual override"
+}
+```
+Returns structured report with citations, historical precedents, diagnostic steps, root cause hypothesis, recommended resolution, and draft Jira comment. Requires Admin role.
+
+### `POST /jira/issues/{issue_key}/comment`
+Explicitly authorized publish endpoint:
+```json
+{
+  "comment": "Approved markdown or ADF text to publish to Jira"
+}
+```
+Includes duplicate comment detection to prevent redundant postings. Requires Admin role.
+
+### `GET /jira/issues/{issue_key}/transitions`
+Retrieve available workflow transitions for an issue. Requires Admin role.
+
+### `POST /jira/issues/{issue_key}/transitions`
+Execute a chosen status transition under staff discretion:
+```json
+{
+  "transition": "In Progress"
+}
+```
+Requires Admin role.
+
+### `POST /jira/webhook`
+Inbound webhook receiver for Atlassian Jira Cloud events. Validates `X-Atlassian-Webhook-Secret` or `?secret=` query parameter and logs audit trail.
+
+---
+
 ## Curl smoke path
 
 ```bash
@@ -236,6 +287,12 @@ curl -s -X POST http://localhost:8000/chat \
   -H "Authorization: Bearer $TOKEN" \
   -H "Content-Type: application/json" \
   -d '{"message":"How do I reset my password?"}'
+
+# jira investigation (admin token)
+curl -s -X POST http://localhost:8000/jira/investigate \
+  -H "Authorization: Bearer $ADMIN_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"issue_key":"DEMO-101"}'
 ```
 
 PowerShell equivalent uses `Invoke-RestMethod` with the same JSON bodies.
@@ -246,3 +303,4 @@ PowerShell equivalent uses `Invoke-RestMethod` with the same JSON bodies.
 
 - [Architecture](architecture.md)
 - [Deploy](deploy.md)
+

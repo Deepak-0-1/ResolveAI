@@ -14,7 +14,7 @@ from resolveai_api.middleware import (
     RequestIdMiddleware,
     SecurityHeadersMiddleware,
 )
-from resolveai_api.routers import auth, chat, feedback, health, kb, tickets
+from resolveai_api.routers import analytics, auth, chat, feedback, health, jira, kb, tickets
 from resolveai_common.logging import configure_logging
 from resolveai_common.redact import redact
 from resolveai_common.settings import get_settings
@@ -75,6 +75,8 @@ def create_app() -> FastAPI:
     app.include_router(kb.router)
     app.include_router(chat.router)
     app.include_router(feedback.router)
+    app.include_router(analytics.router)
+    app.include_router(jira.router)
     return app
 
 

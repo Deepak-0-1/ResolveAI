@@ -180,8 +180,29 @@ flowchart TD
 | M11 Docker/CI | Done |
 | M12 docs + limitations | Done |
 
+## Jira AI Investigation & Resolution Layer
+
+ResolveAI connects to Jira Cloud (and sandbox mode) with a specialized LangGraph investigation agent:
+- Triage & categorization from ticket summary and description.
+- Input sanitization disarming prompt injection and stripping control characters.
+- Grounded retrieval via Qdrant (hybrid dense + BM25 RRF) against technical documentation.
+- Precedent matching against resolved historical tickets in PostgreSQL.
+- Diagnostic boundary checks and safety policy evaluation.
+- Structured report generation with root cause hypothesis, action plan, and draft comment.
+- Explicit human review authorization before any comment is posted to Jira.
+
+## 7. Remaining Incomplete Features or Known Gaps
+
+- **Atlassian Webhooks**: Inbound Jira webhooks (automatic triggering on issue creation in Jira) are not implemented; investigation is currently initiated on-demand by authorized staff to prevent runaway LLM costs and ensure human oversight.
+- **Bi-directional Status Synchronization**: The application deliberately refrains from auto-transitioning Jira issue statuses (e.g. Open -> Resolved) to satisfy safety and least-privilege requirements; state transitions remain under staff discretion.
+
+### Architectural Rationale & Threat Model
+1. **Cost & Loop Protection:** Automatically running LLM workflows on every inbound webhook payload exposes systems to uncontrolled LLM compute consumption, webhook replay storms, and prompt injection embedded in issue descriptions. By requiring staff initiation, cost is bounded and every investigation is intentional.
+2. **Safety & Least-Privilege Guardrails:** Automatically closing or resolving customer support tickets without human sign-off can mask ongoing outages, alienate customers, and violate SOC2/audit compliance. Transitions are exposed via `GET/POST /jira/issues/{key}/transitions` but strictly require human staff execution.
+
 ## Related
 
 - [API reference](api.md)
 - [Deploy / runbook](deploy.md)
 - [Root README](../README.md)
+

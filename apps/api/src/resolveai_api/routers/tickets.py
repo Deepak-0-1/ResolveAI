@@ -10,10 +10,13 @@ from resolveai_api.deps import get_current_user
 from resolveai_api.schemas import (
     DraftCreate,
     DraftOut,
+    MessageCreate,
+    MessageOut,
     TicketCreate,
     TicketDetail,
     TicketOut,
     TicketStatusOut,
+    TicketUpdate,
 )
 from resolveai_db.models import (
     AuditLog,
@@ -190,3 +193,108 @@ def create_ticket_draft(
         sent=False,
         note=result.get("note", "Draft stored only; no external send."),
     )
+
+
+@router.patch("/{ticket_id}", response_model=TicketDetail)
+def update_ticket(
+    ticket_id: str,
+    body: TicketUpdate,
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+) -> Ticket:
+    """Update ticket status, category, priority, or urgency.
+    Admins can update any field. Customers can only close/resolve their own ticket.
+    """
+    ticket = _get_accessible_ticket(db, ticket_id, user)
+    changes: dict[str, str] = {}
+
+    if body.status is not None:
+        if user.role != UserRole.admin and body.status not in (TicketStatus.closed, TicketStatus.resolved):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Customers may only close or resolve their own ticket",
+            )
+        ticket.status = body.status
+        changes["status"] = body.status.value
+
+    if body.category is not None:
+        if user.role != UserRole.admin:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only staff can reclassify tickets")
+        ticket.category = body.category
+        changes["category"] = body.category
+
+    if body.priority is not None:
+        if user.role != UserRole.admin:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only staff can update priority")
+        ticket.priority = body.priority
+        changes["priority"] = body.priority.value
+
+    if body.urgency is not None:
+        if user.role != UserRole.admin:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only staff can update urgency")
+        ticket.urgency = body.urgency
+        changes["urgency"] = body.urgency.value
+
+    if changes:
+        db.add(
+            AuditLog(
+                user_id=user.id,
+                action="ticket.update",
+                resource_type="ticket",
+                resource_id=ticket.id,
+                detail=changes,
+            )
+        )
+        db.flush()
+
+    return (
+        db.query(Ticket)
+        .options(joinedload(Ticket.messages))
+        .filter(Ticket.id == ticket.id)
+        .one()
+    )
+
+
+@router.post("/{ticket_id}/messages", response_model=MessageOut, status_code=status.HTTP_201_CREATED)
+def add_ticket_message(
+    ticket_id: str,
+    body: MessageCreate,
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+) -> Message:
+    """Post a message to the ticket conversation.
+    Customers post as user role; staff can post as agent or assistant.
+    """
+    ticket = _get_accessible_ticket(db, ticket_id, user)
+
+    # Determine message role
+    role = MessageRole.user
+    if user.role == UserRole.admin:
+        if body.role in (MessageRole.agent.value, MessageRole.assistant.value):
+            role = MessageRole(body.role)
+        else:
+            role = MessageRole.agent
+
+    msg = Message(
+        ticket_id=ticket.id,
+        role=role,
+        content=body.content.strip(),
+    )
+    db.add(msg)
+
+    # If staff replies to an escalated ticket, move to pending customer response
+    if user.role == UserRole.admin and ticket.status == TicketStatus.escalated:
+        ticket.status = TicketStatus.pending
+
+    db.add(
+        AuditLog(
+            user_id=user.id,
+            action="ticket.message.create",
+            resource_type="ticket",
+            resource_id=ticket.id,
+            detail={"role": role.value, "length": len(body.content)},
+        )
+    )
+    db.flush()
+    return msg
+
